@@ -9,13 +9,14 @@
 
 using namespace std;
 
-void getFileNames(string, vector<string> *);
+void getFileNames(const string &, vector<string> *);
 
 string changeVolume(string currentVolume);
 
+string changeTrack(vector<string>);
 
 int main() {
-    int n, trackNumber, counter = 0;
+    int n;
     string trackName, fileLink, currentVolume;
     vector<string> files;
     bool isPlaying = false;
@@ -23,29 +24,11 @@ int main() {
     // get file names from folder
     getFileNames("music/", &files);
 
-    // output for files
-    cout << "Files in folder 'music':\n" << endl;
-    for (auto const &file: files) {
-        counter++;
-        cout << counter << ". " << file << endl;
-    }
-    cout << endl;
-
-    // set volume
+    // set initial volume
     currentVolume = "50";
 
     // choose audio file
-    cout << "To choose track press it's number." << endl;
-    cin >> trackNumber;
-
-    // check trackNumber is correct
-    if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
-        cout << "Press correct track's number";
-        return 1;
-    }
-    trackName = files[trackNumber - 1];
-    fileLink = "open music/" + trackName + " type mpegVideo alias mp3";
-
+    fileLink = changeTrack(files);
 
     // infinity loop
     while (true) {
@@ -63,7 +46,7 @@ int main() {
 
         cin >> n;
 
-            // play the audio file
+        // play the audio file
         if (n == 1) {
 
             // save current volume
@@ -82,24 +65,13 @@ int main() {
         } else if (n == 3) {
             mciSendString("close mp3", nullptr, 0, nullptr);
 
-            cout << "\nfiles in folder 'music':" << endl;
-            counter = 0;
-            for (auto const &file: files) {
-                counter++;
-                cout << counter << ". " << file << endl;
-            }
-            cout << "\nTo choose track press it's number." << endl;
-            cin >> trackNumber;
-
-            trackName = files[trackNumber - 1];
-            fileLink = "open music/" + trackName + " type mpegVideo alias mp3";
+            changeTrack(files);
             mciSendString(fileLink.c_str(), nullptr, 0, nullptr);
 
             // save current volume
             mciSendStringA(("setAudio mp3 volume to " + currentVolume).c_str(), nullptr, 0, nullptr);
 
             mciSendString("play mp3", nullptr, 0, nullptr);
-
             isPlaying = true;
 
             cout << "Audio file playing...\n\n";
@@ -146,7 +118,8 @@ int main() {
     return 0;
 }
 
-void getFileNames(string folder, vector<string> *files) {
+
+void getFileNames(const string &folder, vector<string> *files) {
     vector<string> names;
     DIR *dir;
     struct dirent *ent;
@@ -163,6 +136,31 @@ void getFileNames(string folder, vector<string> *files) {
         closedir(dir);
         *files = names;
     }
+}
+
+
+string changeTrack(vector<string> files) {
+    int counter, trackNumber;
+    string trackName, fileLink;
+
+    cout << "\nfiles in folder 'music':" << endl;
+    counter = 0;
+    for (auto const &file: files) {
+        counter++;
+        cout << counter << ". " << file << endl;
+    }
+    cout << "\nTo choose track press it's number." << endl;
+    cin >> trackNumber;
+
+    if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
+        cout << "Press correct track's number";
+        abort();
+    }
+
+    trackName = files[trackNumber - 1];
+    fileLink = "open music/" + trackName + " type mpegVideo alias mp3";
+
+    return fileLink;
 }
 
 
