@@ -15,6 +15,8 @@ string changeVolume(string currentVolume);
 
 string changeTrack(vector<string>);
 
+void rewindTrack();
+
 int main() {
     int n;
     string trackName, fileLink, currentVolume;
@@ -42,6 +44,7 @@ int main() {
         cout << "-Press 3 to change track" << endl;
         cout << "-Press 4 to start track again" << endl;
         cout << "-Press 5 to change volume" << endl;
+        cout << "-Press 6 to rewind track" << endl;
         cout << "-----------------------------" << endl;
 
         cin >> n;
@@ -65,7 +68,7 @@ int main() {
         } else if (n == 3) {
             mciSendString("close mp3", nullptr, 0, nullptr);
 
-            changeTrack(files);
+            fileLink = changeTrack(files);
             mciSendString(fileLink.c_str(), nullptr, 0, nullptr);
 
             // save current volume
@@ -92,6 +95,16 @@ int main() {
             // change volume
         } else if (n == 5 && !isPlaying) {
             currentVolume = changeVolume(currentVolume);
+
+            isPlaying = true;
+
+            // rewind track
+        } else if (n == 6) {
+
+            // save current volume
+            mciSendStringA(("setAudio mp3 volume to " + currentVolume).c_str(), nullptr, 0, nullptr);
+
+            rewindTrack();
 
             isPlaying = true;
         }
@@ -143,6 +156,7 @@ string changeTrack(vector<string> files) {
     int counter, trackNumber;
     string trackName, fileLink;
 
+    // output files
     cout << "\nfiles in folder 'music':" << endl;
     counter = 0;
     for (auto const &file: files) {
@@ -152,9 +166,9 @@ string changeTrack(vector<string> files) {
     cout << "\nTo choose track press it's number." << endl;
     cin >> trackNumber;
 
+    // check that trackNumber is valid
     if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
         cout << "Press correct track's number";
-        abort();
     }
 
     trackName = files[trackNumber - 1];
@@ -176,4 +190,18 @@ string changeVolume(string currentVolume) {
     mciSendString("play mp3", nullptr, 0, nullptr);
 
     return currentVolume;
+}
+
+
+void rewindTrack() {
+    string timing;
+
+    cout << "Press second that you want to rewind: " << endl;
+    cin >> timing;
+
+    // rewind
+    mciSendString(("seek mp3 to " + timing + "000").c_str(), nullptr, 0, nullptr);
+
+    mciSendString("play mp3", nullptr, 0, nullptr);
+
 }
