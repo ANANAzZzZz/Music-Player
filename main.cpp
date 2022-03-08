@@ -1,207 +1,132 @@
-#include <Windows.h>
-#include <MMSystem.h>
-#include <iostream>
-#include <io.h>
-#include "dirent.h"
-#include <vector>
+#include "audioplayer.h"
 
-#pragma comment(lib, "winMM.lib")
-
-using namespace std;
-
-void getFileNames(const string &, vector<string> *);
-
-string changeVolume(string currentVolume);
-
-string changeTrack(vector<string>);
-
-void rewindTrack();
 
 int main() {
-    int n;
-    string trackName, fileLink, currentVolume;
-    vector<string> files;
-    bool isPlaying = false;
+    AudioPlayer musicPlayer;
+    bool firstIteration = true;
 
-    // get file names from folder
-    getFileNames("music/", &files);
-
-    // set initial volume
-    currentVolume = "50";
-
-    // choose audio file
-    fileLink = changeTrack(files);
-
-    // infinity loop
     while (true) {
-        // open .mp3 file
-        mciSendString(fileLink.c_str(), nullptr, 0, nullptr);
+        int n, counter, trackNumber;
+        string fileLink;
 
-        // menu
-        cout << "-----------------------------" << endl;
-        cout << "-Press 1 to play the file" << endl;
-        cout << "-Press 2 to exit the file" << endl;
-        cout << "-Press 3 to change track" << endl;
-        cout << "-Press 4 to start track again" << endl;
-        cout << "-Press 5 to change volume" << endl;
-        cout << "-Press 6 to rewind track" << endl;
-        cout << "-----------------------------" << endl;
+        if (!firstIteration) {
+            // menu
+            cout << "-----------------------------" << endl;
+            cout << "-Press 1 to play the file" << endl;
+            cout << "-Press 2 to exit the file" << endl;
+            cout << "-Press 3 to change track" << endl;
+            cout << "-Press 4 to start track again" << endl;
+            cout << "-Press 5 to change volume" << endl;
+            cout << "-Press 6 to rewind track" << endl;
+            cout << "-----------------------------" << endl;
 
-        cin >> n;
+            cin >> n;
+
+            if (isdigit(n) == n) {
+                cout << "\nError. Please enter number";
+                abort();
+            }
+
+        } else {
+            firstIteration = false;
+
+            // get file names from folder
+            musicPlayer.getFileNames("music/", musicPlayer.files);
+
+            // output files
+            cout << "\nfiles in folder 'music':" << endl;
+            counter = 0;
+            for (auto const file:musicPlayer.files) {
+                counter++;
+                cout << counter << ". " << file << endl;
+            }
+
+            cout << "\nTo choose track press it's number." << endl;
+            cin >> musicPlayer.trackNumber;
+
+            // check that trackNumber is valid
+            if (musicPlayer.trackNumber > counter || isdigit(musicPlayer.trackNumber) == musicPlayer.trackNumber) {
+                cout << "Press correct track's number";
+                break;
+            }
+
+            musicPlayer.changeAudio();
+        }
+
 
         // play the audio file
         if (n == 1) {
+            musicPlayer.playAudio();
 
-            // save current volume
-            mciSendStringA(("setAudio mp3 volume to " + currentVolume).c_str(), nullptr, 0, nullptr);
-
-            mciSendString("play mp3", nullptr, 0, nullptr);
-            isPlaying = true;
-            cout << "Audio file playing...\n\n";
-
-            // close the file and get out of the loop
+            // exit from player
         } else if (n == 2) {
-            mciSendString("close mp3", nullptr, 0, nullptr);
+            musicPlayer.closeAudio();
             break;
 
             // change track
         } else if (n == 3) {
-            mciSendString("close mp3", nullptr, 0, nullptr);
+            // get file names from folder
+            musicPlayer.getFileNames("music/", musicPlayer.files);
 
-            fileLink = changeTrack(files);
-            mciSendString(fileLink.c_str(), nullptr, 0, nullptr);
+            // output files
+            cout << "\nfiles in folder 'music':" << endl;
+            counter = 0;
+            for (auto const file:musicPlayer.files) {
+                counter++;
+                cout << counter << ". " << file << endl;
+            }
 
-            // save current volume
-            mciSendStringA(("setAudio mp3 volume to " + currentVolume).c_str(), nullptr, 0, nullptr);
+            cout << "\nTo choose track press it's number." << endl;
+            cin >> musicPlayer.trackNumber;
 
-            mciSendString("play mp3", nullptr, 0, nullptr);
-            isPlaying = true;
+            // check that trackNumber is valid
+            if (musicPlayer.trackNumber > counter || isdigit(musicPlayer.trackNumber) == musicPlayer.trackNumber) {
+                cout << "Press correct track's number";
+                break;
+            }
 
-            cout << "Audio file playing...\n\n";
+            musicPlayer.changeAudio();
+
+            musicPlayer.changeAudio();
 
             // restart track
-        } else if (n == 4 && !isPlaying) {
+        } else if (n == 4 && !musicPlayer.isPlaying) {
             // place track to start
-            mciSendString("seek mp3 to start", nullptr, 0, nullptr);
-
-            // save current volume
-            mciSendStringA(("setAudio mp3 volume to " + currentVolume).c_str(), nullptr, 0, nullptr);
-
-            mciSendString("play mp3", nullptr, 0, nullptr);
-
-            isPlaying = true;
-
+            musicPlayer.restartAudio();
 
             // change volume
-        } else if (n == 5 && !isPlaying) {
-            currentVolume = changeVolume(currentVolume);
+        } else if (n == 5 && !musicPlayer.isPlaying) {
+            cout << "\nCurrent volume is: " << musicPlayer.currentVolume;
+            cout << "\nTo set volume press it (min - 0; max - 1000)" << endl;
+            cin >> musicPlayer.currentVolume;
 
-            isPlaying = true;
+            musicPlayer.changeVolume();
 
             // rewind track
         } else if (n == 6) {
+            cout << "Press second that you want to rewind: " << endl;
+            cin >> musicPlayer.trackTiming;
 
-            // save current volume
-            mciSendStringA(("setAudio mp3 volume to " + currentVolume).c_str(), nullptr, 0, nullptr);
-
-            rewindTrack();
-
-            isPlaying = true;
+            musicPlayer.rewindAudio();
         }
 
 
-        if (isPlaying) {
+        if (musicPlayer.isPlaying) {
             cout << "Press 0 to pause the file and press 2 to exit the file." << endl;
             cout << "To change track, change volume or start it over press pause first" << endl;
             cin >> n;
 
             if (n == 0) {
                 //pause the audio file
-                isPlaying = false;
-                mciSendString("pause mp3", nullptr, 0, nullptr);
+                musicPlayer.pauseAudio();
 
             } else if (n == 2) {
                 //close the audio file
-                mciSendString("close mp3", nullptr, 0, nullptr);
+                musicPlayer.closeAudio();
                 break;
             }
 
         }
+
     }
-    return 0;
-}
-
-
-void getFileNames(const string &folder, vector<string> *files) {
-    vector<string> names;
-    DIR *dir;
-    struct dirent *ent;
-
-    if ((dir = opendir(folder.c_str())) != nullptr) {
-        /* print all the files and directories within directory */
-        while ((ent = readdir(dir)) != nullptr) {
-            if (!(strcmp(ent->d_name, "..")) || !(strcmp(ent->d_name, "."))) {
-                (void) 0;
-            } else {
-                names.emplace_back(ent->d_name);
-            }
-        }
-        closedir(dir);
-        *files = names;
-    }
-}
-
-
-string changeTrack(vector<string> files) {
-    int counter, trackNumber;
-    string trackName, fileLink;
-
-    // output files
-    cout << "\nfiles in folder 'music':" << endl;
-    counter = 0;
-    for (auto const &file: files) {
-        counter++;
-        cout << counter << ". " << file << endl;
-    }
-    cout << "\nTo choose track press it's number." << endl;
-    cin >> trackNumber;
-
-    // check that trackNumber is valid
-    if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
-        cout << "Press correct track's number";
-    }
-
-    trackName = files[trackNumber - 1];
-    fileLink = "open music/" + trackName + " type mpegVideo alias mp3";
-
-    return fileLink;
-}
-
-
-string changeVolume(string currentVolume) {
-    string volumeLink;
-
-    cout << "\nCurrent volume is: " << currentVolume;
-    cout << "\nTo set volume press it (min - 0; max - 1000)" << endl;
-    cin >> currentVolume;
-
-    volumeLink = "setAudio mp3 volume to " + currentVolume;
-    mciSendStringA(volumeLink.c_str(), nullptr, 0, nullptr);
-    mciSendString("play mp3", nullptr, 0, nullptr);
-
-    return currentVolume;
-}
-
-
-void rewindTrack() {
-    string timing;
-
-    cout << "Press second that you want to rewind: " << endl;
-    cin >> timing;
-
-    // rewind
-    mciSendString(("seek mp3 to " + timing + "000").c_str(), nullptr, 0, nullptr);
-
-    mciSendString("play mp3", nullptr, 0, nullptr);
-
 }
