@@ -3,18 +3,20 @@
 
 void AudioPlayer::getFileNames(const string &folder, vector<string>) {
     vector<string> names;
-    DIR *directory;
-    struct dirent *ent;
-    if ((directory = opendir(folder.c_str())) != nullptr) {
-        /* print all the files and directories within directory */
-        while ((ent = readdir(directory)) != nullptr) {
-            if ((strcmp(ent->d_name, "..")) && (strcmp(ent->d_name, "."))) {
-                names.emplace_back(ent->d_name);
-            }
-        }
-        closedir(directory);
-        files = names;
+    DIR* directory = opendir(folder.c_str());
+
+    if (directory == nullptr) {
+        abort();
     }
+
+    struct dirent *ent;
+    while ((ent = readdir(directory)) != nullptr) {
+        if ((strcmp(ent->d_name, "..")) && (strcmp(ent->d_name, "."))) {
+            names.emplace_back(ent->d_name);
+        }
+    }
+    closedir(directory);
+    files = names;
 }
 
 
