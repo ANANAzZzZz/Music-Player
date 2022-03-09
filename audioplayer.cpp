@@ -17,7 +17,7 @@ void AudioPlayer::getFileNames(const string &folder, vector<string>) {
         }
         closedir(directory);
         files = names;
-        }
+    }
 }
 
 
