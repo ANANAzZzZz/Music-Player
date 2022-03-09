@@ -7,7 +7,7 @@
 #include <string>
 #include <algorithm>
 
-
+#pragma once
 #pragma comment(lib, "winMM.lib")
 
 using namespace std;
@@ -23,19 +23,19 @@ class AudioPlayer {
         vector<string> files;
         bool isPlaying = false;
 
-    void playAudio();
+        void playAudio();
 
-    void changeVolume();
+        void changeVolume();
 
-    void rewindAudio();
+        void rewindAudio();
 
-    void closeAudio();
+        void closeAudio();
 
-    void changeAudio();
+        void changeAudio();
 
-    void restartAudio();
+        void restartAudio();
 
-    void pauseAudio();
+        void pauseAudio();
 
-    void getFileNames(const string &, vector<string>);
+        void getFileNames(const string &, vector<string>);
 };
