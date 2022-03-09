@@ -1,6 +1,6 @@
 #include "audioplayer.h"
 
-void AudioPlayer::getFileNames(const string &folder, vector<string>) {
+void AudioPlayer::getFileNames(const string& folder, vector<string>) {
     vector<string> names;
     DIR* directory = opendir(folder.c_str());
 
@@ -8,7 +8,7 @@ void AudioPlayer::getFileNames(const string &folder, vector<string>) {
         abort();
     }
 
-    struct dirent *ent;
+    struct dirent* ent;
     while ((ent = readdir(directory)) != nullptr) {
         if ((strcmp(ent->d_name, "..")) && (strcmp(ent->d_name, "."))) {
             names.emplace_back(ent->d_name);

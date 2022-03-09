@@ -36,5 +36,5 @@ class AudioPlayer {
 
         void pauseAudio();
 
-        void getFileNames(const string &, vector<string>);
+        void getFileNames(const string&, vector<string>);
 };
