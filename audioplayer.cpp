@@ -1,6 +1,5 @@
 #include "audioplayer.h"
 
-
 void AudioPlayer::getFileNames(const string &folder, vector<string>) {
     vector<string> names;
     DIR* directory = opendir(folder.c_str());
@@ -19,11 +18,9 @@ void AudioPlayer::getFileNames(const string &folder, vector<string>) {
     files = names;
 }
 
-
 void AudioPlayer::closeAudio() {
     mciSendString("close mp3", nullptr, 0, nullptr);
 }
-
 
 void AudioPlayer::playAudio() {
     // save current volume
@@ -32,9 +29,7 @@ void AudioPlayer::playAudio() {
     // play audio
     isPlaying = true;
     mciSendString("play mp3", nullptr, 0, nullptr);
-
 }
-
 
 void AudioPlayer::changeVolume() {
     string volumeLink;
@@ -44,10 +39,7 @@ void AudioPlayer::changeVolume() {
 
     isPlaying = true;
     mciSendString("play mp3", nullptr, 0, nullptr);
-
-
 }
-
 
 void AudioPlayer::rewindAudio() {
     // rewind
@@ -55,9 +47,7 @@ void AudioPlayer::rewindAudio() {
 
     isPlaying = true;
     mciSendString("play mp3", nullptr, 0, nullptr);
-
 }
-
 
 void AudioPlayer::changeAudio() {
 
@@ -73,7 +63,6 @@ void AudioPlayer::changeAudio() {
     playAudio();
 }
 
-
 void AudioPlayer::restartAudio() {
     // place track to start
     mciSendString("seek mp3 to start", nullptr, 0, nullptr);
@@ -85,10 +74,8 @@ void AudioPlayer::restartAudio() {
     isPlaying = true;
 }
 
-
 void AudioPlayer::pauseAudio() {
     //pause the audio file
     isPlaying = false;
     mciSendString("pause mp3", nullptr, 0, nullptr);
 }
-

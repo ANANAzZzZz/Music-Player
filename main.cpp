@@ -1,6 +1,5 @@
 #include "audioplayer.h"
 
-
 int main() {
     AudioPlayer musicPlayer;
     bool firstIteration = true;
@@ -53,7 +52,6 @@ int main() {
             musicPlayer.changeAudio();
         }
 
-
         // play the audio file
         if (n == 1) {
             musicPlayer.playAudio();
@@ -87,8 +85,6 @@ int main() {
 
             musicPlayer.changeAudio();
 
-            musicPlayer.changeAudio();
-
             // restart track
         } else if (n == 4 && !musicPlayer.isPlaying) {
             // place track to start
@@ -110,7 +106,6 @@ int main() {
             musicPlayer.rewindAudio();
         }
 
-
         if (musicPlayer.isPlaying) {
             cout << "Press 0 to pause the file and press 2 to exit the file." << endl;
             cout << "To change track, change volume or start it over press pause first" << endl;
@@ -125,8 +120,6 @@ int main() {
                 musicPlayer.closeAudio();
                 break;
             }
-
         }
-
     }
 }
