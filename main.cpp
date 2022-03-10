@@ -1,5 +1,7 @@
 #include "audioplayer.h"
 
+void printMenu();
+
 int main() {
     AudioPlayer musicPlayer;
     bool firstIteration = true;
@@ -10,14 +12,7 @@ int main() {
 
         if (!firstIteration) {
             // menu
-            cout << "-----------------------------" << endl;
-            cout << "-Press 1 to play the file" << endl;
-            cout << "-Press 2 to exit the file" << endl;
-            cout << "-Press 3 to change track" << endl;
-            cout << "-Press 4 to start track again" << endl;
-            cout << "-Press 5 to change volume" << endl;
-            cout << "-Press 6 to rewind track" << endl;
-            cout << "-----------------------------" << endl;
+            printMenu();
 
             cin >> n;
 
@@ -123,4 +118,15 @@ int main() {
             }
         }
     }
+}
+
+void printMenu() {
+    cout << "-----------------------------" << endl;
+    cout << "-Press 1 to play the file" << endl;
+    cout << "-Press 2 to exit the file" << endl;
+    cout << "-Press 3 to change track" << endl;
+    cout << "-Press 4 to start track again" << endl;
+    cout << "-Press 5 to change volume" << endl;
+    cout << "-Press 6 to rewind track" << endl;
+    cout << "-----------------------------" << endl;
 }
