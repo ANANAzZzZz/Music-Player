@@ -5,7 +5,7 @@ vector<string> getFileNames(const string& folder) {
     DIR* directory = opendir(folder.c_str());
 
     if (directory == nullptr) {
-        abort();
+        throw invalid_argument("unable to find directory");
     }
 
     struct dirent* ent;
