@@ -19,45 +19,45 @@ void AudioPlayer::getFileNames(const string& folder, vector<string>) {
 }
 
 void AudioPlayer::closeAudio() {
-    mciSendString("close mp3", nullptr, 0, nullptr);
+    callMciSendString("close mp3");
 }
 
 void AudioPlayer::playAudio() {
     // save current volume
-    mciSendStringA(("setAudio mp3 volume to " + currentVolume).c_str(), nullptr, 0, nullptr);
+    callMciSendString(("setAudio mp3 volume to " + currentVolume));
 
     // play audio
     isPlaying = true;
-    mciSendString("play mp3", nullptr, 0, nullptr);
+    callMciSendString("play mp3");
 }
 
 void AudioPlayer::changeVolume() {
     string volumeLink;
 
     volumeLink = "setAudio mp3 volume to " + currentVolume;
-    mciSendStringA(volumeLink.c_str(), nullptr, 0, nullptr);
+    callMciSendString(volumeLink);
 
     isPlaying = true;
-    mciSendString("play mp3", nullptr, 0, nullptr);
+    callMciSendString("play mp3");
 }
 
 void AudioPlayer::rewindAudio() {
     // rewind
-    mciSendString(("seek mp3 to " + trackTiming + "000").c_str(), nullptr, 0, nullptr);
+    callMciSendString(("seek mp3 to " + trackTiming + "000"));
 
     isPlaying = true;
-    mciSendString("play mp3", nullptr, 0, nullptr);
+    callMciSendString("play mp3");
 }
 
 void AudioPlayer::changeAudio() {
 
     // close previous audio
-    mciSendString("close mp3", nullptr, 0, nullptr);
+    callMciSendString("close mp3");
 
     trackName = files[trackNumber - 1];
 
     fileLink = "open music/" + trackName + " type mpegVideo alias mp3";
-    mciSendString(fileLink.c_str(), nullptr, 0, nullptr);
+    callMciSendString(fileLink);
 
     isPlaying = true;
     playAudio();
@@ -65,17 +65,21 @@ void AudioPlayer::changeAudio() {
 
 void AudioPlayer::restartAudio() {
     // place track to start
-    mciSendString("seek mp3 to start", nullptr, 0, nullptr);
+    callMciSendString("seek mp3 to start");
 
     // save current volume
-    mciSendStringA(("setAudio mp3 volume to " + currentVolume).c_str(), nullptr, 0, nullptr);
+    callMciSendString(("setAudio mp3 volume to " + currentVolume));
 
-    mciSendString("play mp3", nullptr, 0, nullptr);
+    callMciSendString("play mp3");
     isPlaying = true;
 }
 
 void AudioPlayer::pauseAudio() {
     //pause the audio file
     isPlaying = false;
-    mciSendString("pause mp3", nullptr, 0, nullptr);
+    callMciSendString("pause mp3");
+}
+
+void callMciSendString(const string& str) {
+    mciSendString(str.c_str(), nullptr, 0, nullptr);
 }

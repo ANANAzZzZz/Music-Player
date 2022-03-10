@@ -12,6 +12,8 @@
 
 using namespace std;
 
+void callMciSendString(const string& str);
+
 class AudioPlayer {
     public:
         int trackNumber;
