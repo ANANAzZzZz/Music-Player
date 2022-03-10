@@ -36,13 +36,10 @@ int main() {
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
 
-            // check that trackNumber is valid
-            if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
-                cout << "Press correct track's number";
+            if (!musicPlayer.changeAudio(trackNumber, counter)) {
+                cout << "Enter correct track's number";
                 break;
             }
-
-            musicPlayer.changeAudio(trackNumber);
         }
 
         // play the audio file
@@ -57,8 +54,6 @@ int main() {
             // change track
         } else if (n == 3) {
             vector<string> files = getFileNames("music/");
-            // get file names from folder
-            getFileNames("music/");
 
             // output files
             cout << "\nfiles in folder 'music':" << endl;
@@ -71,13 +66,10 @@ int main() {
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
 
-            // check that trackNumber is valid
-            if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
-                cout << "Press correct track's number";
+            if (!musicPlayer.changeAudio(trackNumber, counter)) {
+                cout << "Enter correct track's number";
                 break;
             }
-
-            musicPlayer.changeAudio(trackNumber);
 
             // restart track
         } else if (n == 4 && !musicPlayer.isPlaying) {

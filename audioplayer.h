@@ -31,7 +31,7 @@ class AudioPlayer {
 
         void closeAudio();
 
-        void changeAudio(int);
+        bool changeAudio(int, int);
 
         void restartAudio();
 
