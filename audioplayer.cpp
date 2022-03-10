@@ -31,8 +31,10 @@ void AudioPlayer::playAudio() {
     callMciSendString("play mp3");
 }
 
-void AudioPlayer::changeVolume() {
+void AudioPlayer::changeVolume(string volume) {
     string volumeLink;
+
+    currentVolume = volume;
 
     volumeLink = "setAudio mp3 volume to " + currentVolume;
     callMciSendString(volumeLink);
@@ -49,11 +51,11 @@ void AudioPlayer::rewindAudio(string trackTiming) {
     callMciSendString("play mp3");
 }
 
-bool AudioPlayer::changeAudio(int trackNumber, int counter) {
+bool AudioPlayer::changeAudio(int trackNumber) {
     vector<string> files = getFileNames("music/");
 
     // check that trackNumber is valid
-    if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
+    if (trackNumber > files.size() || isdigit(trackNumber) == trackNumber) {
         return false;
     }
 
@@ -67,6 +69,8 @@ bool AudioPlayer::changeAudio(int trackNumber, int counter) {
 
     isPlaying = true;
     playAudio();
+
+    return true;
 }
 
 void AudioPlayer::restartAudio() {
@@ -88,4 +92,8 @@ void AudioPlayer::pauseAudio() {
 
 void callMciSendString(const string& str) {
     mciSendString(str.c_str(), nullptr, 0, nullptr);
+}
+
+bool AudioPlayer::isAudioPlaying() {
+    return isPlaying;
 }

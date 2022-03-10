@@ -5,9 +5,12 @@ void printMenu();
 int main() {
     AudioPlayer musicPlayer;
     bool firstIteration = true;
+    string volume = "50";
 
     while (true) {
-        int n, counter, trackNumber;
+        int n;
+        int counter;
+        int trackNumber;
         string fileLink;
 
         if (!firstIteration) {
@@ -36,7 +39,7 @@ int main() {
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
 
-            if (!musicPlayer.changeAudio(trackNumber, counter)) {
+            if (!musicPlayer.changeAudio(trackNumber)) {
                 cout << "Enter correct track's number";
                 break;
             }
@@ -66,23 +69,23 @@ int main() {
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
 
-            if (!musicPlayer.changeAudio(trackNumber, counter)) {
+            if (!musicPlayer.changeAudio(trackNumber)) {
                 cout << "Enter correct track's number";
                 break;
             }
 
             // restart track
-        } else if (n == 4 && !musicPlayer.isPlaying) {
+        } else if (n == 4 && !musicPlayer.isAudioPlaying()) {
             // place track to start
             musicPlayer.restartAudio();
 
             // change volume
-        } else if (n == 5 && !musicPlayer.isPlaying) {
-            cout << "\nCurrent volume is: " << musicPlayer.currentVolume;
+        } else if (n == 5 && !musicPlayer.isAudioPlaying()) {
+            cout << "\nCurrent volume is: " << volume;
             cout << "\nTo set volume press it (min - 0; max - 1000)" << endl;
-            cin >> musicPlayer.currentVolume;
+            cin >> volume;
 
-            musicPlayer.changeVolume();
+            musicPlayer.changeVolume(volume);
 
             // rewind track
         } else if (n == 6) {
@@ -94,7 +97,7 @@ int main() {
             musicPlayer.rewindAudio(trackTiming);
         }
 
-        if (musicPlayer.isPlaying) {
+        if (musicPlayer.isAudioPlaying()) {
             cout << "Press 0 to pause the file and press 2 to exit the file." << endl;
             cout << "To change track, change volume or start it over press pause first" << endl;
             cin >> n;
