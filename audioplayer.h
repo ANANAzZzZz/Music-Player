@@ -14,29 +14,26 @@ using namespace std;
 
 void callMciSendString(const string& str);
 
+vector<string> getFileNames(const string&);
+
 class AudioPlayer {
     public:
-        int trackNumber;
-        string trackTiming;
         string trackName;
         string fileLink;
         string currentVolume = "50";
-        vector<string> files;
         bool isPlaying = false;
 
         void playAudio();
 
         void changeVolume();
 
-        void rewindAudio();
+        void rewindAudio(string);
 
         void closeAudio();
 
-        void changeAudio();
+        void changeAudio(int);
 
         void restartAudio();
 
         void pauseAudio();
-
-        void getFileNames(const string&, vector<string>);
 };

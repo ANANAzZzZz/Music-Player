@@ -1,6 +1,6 @@
 #include "audioplayer.h"
 
-void AudioPlayer::getFileNames(const string& folder, vector<string>) {
+vector<string> getFileNames(const string& folder) {
     vector<string> names;
     DIR* directory = opendir(folder.c_str());
 
@@ -15,7 +15,7 @@ void AudioPlayer::getFileNames(const string& folder, vector<string>) {
         }
     }
     closedir(directory);
-    files = names;
+    return names;
 }
 
 void AudioPlayer::closeAudio() {
@@ -41,7 +41,7 @@ void AudioPlayer::changeVolume() {
     callMciSendString("play mp3");
 }
 
-void AudioPlayer::rewindAudio() {
+void AudioPlayer::rewindAudio(string trackTiming) {
     // rewind
     callMciSendString(("seek mp3 to " + trackTiming + "000"));
 
@@ -49,7 +49,8 @@ void AudioPlayer::rewindAudio() {
     callMciSendString("play mp3");
 }
 
-void AudioPlayer::changeAudio() {
+void AudioPlayer::changeAudio(int trackNumber) {
+    vector<string> files = getFileNames("music/");
 
     // close previous audio
     callMciSendString("close mp3");

@@ -28,28 +28,26 @@ int main() {
 
         } else {
             firstIteration = false;
-
-            // get file names from folder
-            musicPlayer.getFileNames("music/", musicPlayer.files);
+            vector<string> files = getFileNames("music/");
 
             // output files
             cout << "\nfiles in folder 'music':" << endl;
             counter = 0;
-            for (auto const file:musicPlayer.files) {
+            for (auto const file:files) {
                 counter++;
                 cout << counter << ". " << file << endl;
             }
 
             cout << "\nTo choose track press it's number." << endl;
-            cin >> musicPlayer.trackNumber;
+            cin >> trackNumber;
 
             // check that trackNumber is valid
-            if (musicPlayer.trackNumber > counter || isdigit(musicPlayer.trackNumber) == musicPlayer.trackNumber) {
+            if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
                 cout << "Press correct track's number";
                 break;
             }
 
-            musicPlayer.changeAudio();
+            musicPlayer.changeAudio(trackNumber);
         }
 
         // play the audio file
@@ -63,27 +61,28 @@ int main() {
 
             // change track
         } else if (n == 3) {
+            vector<string> files = getFileNames("music/");
             // get file names from folder
-            musicPlayer.getFileNames("music/", musicPlayer.files);
+            getFileNames("music/");
 
             // output files
             cout << "\nfiles in folder 'music':" << endl;
             counter = 0;
-            for (auto const file:musicPlayer.files) {
+            for (auto const file:files) {
                 counter++;
                 cout << counter << ". " << file << endl;
             }
 
             cout << "\nTo choose track press it's number." << endl;
-            cin >> musicPlayer.trackNumber;
+            cin >> trackNumber;
 
             // check that trackNumber is valid
-            if (musicPlayer.trackNumber > counter || isdigit(musicPlayer.trackNumber) == musicPlayer.trackNumber) {
+            if (trackNumber > counter || isdigit(trackNumber) == trackNumber) {
                 cout << "Press correct track's number";
                 break;
             }
 
-            musicPlayer.changeAudio();
+            musicPlayer.changeAudio(trackNumber);
 
             // restart track
         } else if (n == 4 && !musicPlayer.isPlaying) {
@@ -100,10 +99,12 @@ int main() {
 
             // rewind track
         } else if (n == 6) {
-            cout << "Press second that you want to rewind: " << endl;
-            cin >> musicPlayer.trackTiming;
+            string trackTiming;
 
-            musicPlayer.rewindAudio();
+            cout << "Press second that you want to rewind: " << endl;
+            cin >> trackTiming;
+
+            musicPlayer.rewindAudio(trackTiming);
         }
 
         if (musicPlayer.isPlaying) {
