@@ -20,7 +20,6 @@ class AudioPlayer {
 
 private:
     string trackName;
-    string fileLink;
     string currentVolume = "50";
     bool isPlaying = false;
 

@@ -33,11 +33,7 @@ void AudioPlayer::playAudio() {
 
 void AudioPlayer::changeVolume(const string& volume) {
     currentVolume = volume;
-
     callMciSendString("setAudio mp3 volume to " + currentVolume);
-
-    isPlaying = true;
-    callMciSendString("play mp3");
 }
 
 void AudioPlayer::rewindAudio(const string& trackTiming) {
@@ -61,8 +57,7 @@ bool AudioPlayer::changeAudio(int trackNumber) {
 
     trackName = files[trackNumber - 1];
 
-    fileLink = "open music/" + trackName + " type mpegVideo alias mp3";
-    callMciSendString(fileLink);
+    callMciSendString("open music/" + trackName + " type mpegVideo alias mp3");
 
     isPlaying = true;
     playAudio();
