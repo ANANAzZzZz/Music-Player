@@ -32,12 +32,9 @@ void AudioPlayer::playAudio() {
 }
 
 void AudioPlayer::changeVolume(const string& volume) {
-    string volumeLink;
-
     currentVolume = volume;
 
-    volumeLink = "setAudio mp3 volume to " + currentVolume;
-    callMciSendString(volumeLink);
+    callMciSendString("setAudio mp3 volume to " + currentVolume);
 
     isPlaying = true;
     callMciSendString("play mp3");
