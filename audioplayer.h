@@ -28,9 +28,9 @@ public:
 
     void playAudio();
 
-    void changeVolume(string);
+    void changeVolume(const string&);
 
-    void rewindAudio(string);
+    void rewindAudio(const string&);
 
     void closeAudio();
 

@@ -31,7 +31,7 @@ void AudioPlayer::playAudio() {
     callMciSendString("play mp3");
 }
 
-void AudioPlayer::changeVolume(string volume) {
+void AudioPlayer::changeVolume(const string& volume) {
     string volumeLink;
 
     currentVolume = volume;
@@ -43,7 +43,7 @@ void AudioPlayer::changeVolume(string volume) {
     callMciSendString("play mp3");
 }
 
-void AudioPlayer::rewindAudio(string trackTiming) {
+void AudioPlayer::rewindAudio(const string& trackTiming) {
     // rewind
     callMciSendString(("seek mp3 to " + trackTiming + "000"));
 
