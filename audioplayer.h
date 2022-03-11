@@ -12,9 +12,9 @@
 
 using namespace std;
 
-void callMciSendString(const string &str);
+void CallMciSendString(const string &str);
 
-vector<string> getFileNames(const string &);
+vector<string> GetFileNames(const string &folder);
 
 class AudioPlayer {
 
@@ -25,19 +25,19 @@ private:
 
 public:
 
-    void playAudio();
+    void PlayAudio();
 
-    void changeVolume(const string&);
+    void ChangeVolume(const string &volume);
 
-    void rewindAudio(const string&);
+    void RewindAudio(const string &trackTiming);
 
-    void closeAudio();
+    void CloseAudio();
 
-    bool changeTrack(const int&);
+    bool ChangeTrack(const int&);
 
-    void restartAudio();
+    void RestartAudio();
 
-    void pauseAudio();
+    void PauseAudio();
 
-    bool isAudioPlaying();
+    bool IsPlaying();
 };

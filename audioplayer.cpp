@@ -1,6 +1,6 @@
 #include "audioplayer.h"
 
-vector<string> getFileNames(const string& folder) {
+vector<string> GetFileNames(const string& folder) {
     vector<string> names;
     DIR* directory = opendir(folder.c_str());
 
@@ -18,34 +18,34 @@ vector<string> getFileNames(const string& folder) {
     return names;
 }
 
-void AudioPlayer::closeAudio() {
-    callMciSendString("close mp3");
+void AudioPlayer::CloseAudio() {
+    CallMciSendString("close mp3");
 }
 
-void AudioPlayer::playAudio() {
+void AudioPlayer::PlayAudio() {
     // save current volume
-    callMciSendString(("setAudio mp3 volume to " + currentVolume));
+    CallMciSendString(("setAudio mp3 volume to " + currentVolume));
 
     // play audio
     isPlaying = true;
-    callMciSendString("play mp3");
+    CallMciSendString("play mp3");
 }
 
-void AudioPlayer::changeVolume(const string& volume) {
+void AudioPlayer::ChangeVolume(const string& volume) {
     currentVolume = volume;
-    callMciSendString("setAudio mp3 volume to " + currentVolume);
+    CallMciSendString("setAudio mp3 volume to " + currentVolume);
 }
 
-void AudioPlayer::rewindAudio(const string& trackTiming) {
+void AudioPlayer::RewindAudio(const string& trackTiming) {
     // rewind
-    callMciSendString(("seek mp3 to " + trackTiming + "000"));
+    CallMciSendString(("seek mp3 to " + trackTiming + "000"));
 
     isPlaying = true;
-    callMciSendString("play mp3");
+    CallMciSendString("play mp3");
 }
 
-bool AudioPlayer::changeTrack(const int& trackNumber) {
-    vector<string> files = getFileNames("music/");
+bool AudioPlayer::ChangeTrack(const int& trackNumber) {
+    vector<string> files = GetFileNames("music/");
 
     // check that trackNumber is valid
     if (trackNumber > files.size() || isdigit(trackNumber) == trackNumber) {
@@ -53,39 +53,39 @@ bool AudioPlayer::changeTrack(const int& trackNumber) {
     }
 
     // close previous audio
-    callMciSendString("close mp3");
+    CallMciSendString("close mp3");
 
     trackName = files[trackNumber - 1];
 
-    callMciSendString("open music/" + trackName + " type mpegVideo alias mp3");
+    CallMciSendString("open music/" + trackName + " type mpegVideo alias mp3");
 
     isPlaying = true;
-    playAudio();
+    PlayAudio();
 
     return true;
 }
 
-void AudioPlayer::restartAudio() {
+void AudioPlayer::RestartAudio() {
     // place track to start
-    callMciSendString("seek mp3 to start");
+    CallMciSendString("seek mp3 to start");
 
     // save current volume
-    callMciSendString(("setAudio mp3 volume to " + currentVolume));
+    CallMciSendString(("setAudio mp3 volume to " + currentVolume));
 
-    callMciSendString("play mp3");
+    CallMciSendString("play mp3");
     isPlaying = true;
 }
 
-void AudioPlayer::pauseAudio() {
+void AudioPlayer::PauseAudio() {
     //pause the audio file
     isPlaying = false;
-    callMciSendString("pause mp3");
+    CallMciSendString("pause mp3");
 }
 
-void callMciSendString(const string& str) {
+void CallMciSendString(const string& str) {
     mciSendString(str.c_str(), nullptr, 0, nullptr);
 }
 
-bool AudioPlayer::isAudioPlaying() {
+bool AudioPlayer::IsPlaying() {
     return isPlaying;
 }

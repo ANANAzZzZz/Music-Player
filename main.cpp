@@ -26,7 +26,7 @@ int main() {
 
         } else {
             firstIteration = false;
-            vector<string> files = getFileNames("music/");
+            vector<string> files = GetFileNames("music/");
 
             // output files
             cout << "\nfiles in folder 'music':" << endl;
@@ -39,7 +39,7 @@ int main() {
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
 
-            if (!musicPlayer.changeTrack(trackNumber)) {
+            if (!musicPlayer.ChangeTrack(trackNumber)) {
                 cout << "Enter correct track's number";
                 break;
             }
@@ -47,16 +47,16 @@ int main() {
 
         // play the audio file
         if (n == 1) {
-            musicPlayer.playAudio();
+            musicPlayer.PlayAudio();
 
             // exit from player
         } else if (n == 2) {
-            musicPlayer.closeAudio();
+            musicPlayer.CloseAudio();
             break;
 
             // change track
         } else if (n == 3) {
-            vector<string> files = getFileNames("music/");
+            vector<string> files = GetFileNames("music/");
 
             // output files
             cout << "\nfiles in folder 'music':" << endl;
@@ -69,23 +69,23 @@ int main() {
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
 
-            if (!musicPlayer.changeTrack(trackNumber)) {
+            if (!musicPlayer.ChangeTrack(trackNumber)) {
                 cout << "Enter correct track's number";
                 break;
             }
 
             // restart track
-        } else if (n == 4 && !musicPlayer.isAudioPlaying()) {
+        } else if (n == 4 && !musicPlayer.IsPlaying()) {
             // place track to start
-            musicPlayer.restartAudio();
+            musicPlayer.RestartAudio();
 
             // change volume
-        } else if (n == 5 && !musicPlayer.isAudioPlaying()) {
+        } else if (n == 5 && !musicPlayer.IsPlaying()) {
             cout << "\nCurrent volume is: " << volume;
             cout << "\nTo set volume press it (min - 0; max - 1000)" << endl;
             cin >> volume;
 
-            musicPlayer.changeVolume(volume);
+            musicPlayer.ChangeVolume(volume);
 
             // rewind track
         } else if (n == 6) {
@@ -94,21 +94,21 @@ int main() {
             cout << "Press second that you want to rewind: " << endl;
             cin >> trackTiming;
 
-            musicPlayer.rewindAudio(trackTiming);
+            musicPlayer.RewindAudio(trackTiming);
         }
 
-        if (musicPlayer.isAudioPlaying()) {
+        if (musicPlayer.IsPlaying()) {
             cout << "Press 0 to pause the file and press 2 to exit the file." << endl;
             cout << "To change track, change volume or start it over press pause first" << endl;
             cin >> n;
 
             if (n == 0) {
                 //pause the audio file
-                musicPlayer.pauseAudio();
+                musicPlayer.PauseAudio();
 
             } else if (n == 2) {
                 //close the audio file
-                musicPlayer.closeAudio();
+                musicPlayer.CloseAudio();
                 break;
             }
         }
