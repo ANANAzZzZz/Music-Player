@@ -44,7 +44,7 @@ void AudioPlayer::rewindAudio(const string& trackTiming) {
     callMciSendString("play mp3");
 }
 
-bool AudioPlayer::changeAudio(int trackNumber) {
+bool AudioPlayer::changeTrack(const int& trackNumber) {
     vector<string> files = getFileNames("music/");
 
     // check that trackNumber is valid

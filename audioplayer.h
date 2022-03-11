@@ -33,7 +33,7 @@ public:
 
     void closeAudio();
 
-    bool changeAudio(int);
+    bool changeTrack(const int&);
 
     void restartAudio();
 

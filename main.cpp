@@ -39,7 +39,7 @@ int main() {
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
 
-            if (!musicPlayer.changeAudio(trackNumber)) {
+            if (!musicPlayer.changeTrack(trackNumber)) {
                 cout << "Enter correct track's number";
                 break;
             }
@@ -69,7 +69,7 @@ int main() {
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
 
-            if (!musicPlayer.changeAudio(trackNumber)) {
+            if (!musicPlayer.changeTrack(trackNumber)) {
                 cout << "Enter correct track's number";
                 break;
             }
