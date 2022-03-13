@@ -40,8 +40,7 @@ void AudioPlayer::RewindAudio(const string& trackTiming) {
     // rewind
     CallMciSendString(("seek mp3 to " + trackTiming + "000"));
 
-    isPlaying = true;
-    CallMciSendString("play mp3");
+    PlayAudio();
 }
 
 bool AudioPlayer::ChangeTrack(const int& trackNumber) {
@@ -59,7 +58,6 @@ bool AudioPlayer::ChangeTrack(const int& trackNumber) {
 
     CallMciSendString("open music/" + trackName + " type mpegVideo alias mp3");
 
-    isPlaying = true;
     PlayAudio();
 
     return true;
