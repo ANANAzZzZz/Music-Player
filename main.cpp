@@ -104,12 +104,12 @@ int main() {
 
 void PrintMenu() {
     cout << "-----------------------------" << endl;
-    cout << "-Press 1 to play the file" << endl;
-    cout << "-Press 2 to exit the file" << endl;
-    cout << "-Press 3 to change track" << endl;
-    cout << "-Press 4 to start track again" << endl;
-    cout << "-Press 5 to change volume" << endl;
-    cout << "-Press 6 to rewind track" << endl;
+    cout << "-Input 1 to play the file" << endl;
+    cout << "-Input 2 to exit the file" << endl;
+    cout << "-Input 3 to change track" << endl;
+    cout << "-Input 4 to start track again" << endl;
+    cout << "-Input 5 to change volume" << endl;
+    cout << "-Input 6 to rewind track" << endl;
     cout << "-----------------------------" << endl;
 }
 
