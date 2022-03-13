@@ -1,3 +1,4 @@
+#pragma once
 #include <Windows.h>
 #include <MMSystem.h>
 #include <iostream>
@@ -7,7 +8,6 @@
 #include <string>
 #include <algorithm>
 
-#pragma once
 #pragma comment(lib, "winMM.lib")
 
 using namespace std;
@@ -22,22 +22,13 @@ private:
     bool isPlaying = false;
 
 public:
-    void PlayAudio();
-
-    void ChangeVolume(const string &volume);
-
-    void RewindAudio(const string &trackTiming);
-
-    void CloseAudio();
-
-    bool ChangeTrack(const int &);
-
-    void RestartAudio();
-
-    void PauseAudio();
-
-    bool IsPlaying();
-
     vector<string> GetAvailableTracks(const string &folder);
-
+    void ChangeVolume(const string &volume);
+    void RewindAudio(const string &trackTiming);
+    void CloseAudio();
+    bool ChangeTrack(const int &);
+    void RestartAudio();
+    void PlayAudio();
+    void PauseAudio();
+    bool IsPlaying();
 };
