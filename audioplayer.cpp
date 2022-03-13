@@ -69,11 +69,7 @@ void AudioPlayer::RestartAudio() {
     // place track to start
     CallMciSendString("seek mp3 to start");
 
-    // save current volume
-    CallMciSendString(("setAudio mp3 volume to " + currentVolume));
-
-    CallMciSendString("play mp3");
-    isPlaying = true;
+    PlayAudio();
 }
 
 void AudioPlayer::PauseAudio() {
