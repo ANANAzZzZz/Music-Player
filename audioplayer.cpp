@@ -8,7 +8,7 @@ vector<string> AudioPlayer::GetAvailableTracks(const string& folder) {
         throw invalid_argument("unable to find directory");
     }
 
-    struct dirent* ent;
+    dirent* ent;
     while ((ent = readdir(directory)) != nullptr) {
         if ((strcmp(ent->d_name, "..")) && (strcmp(ent->d_name, "."))) {
             names.emplace_back(ent->d_name);
