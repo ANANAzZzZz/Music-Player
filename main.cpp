@@ -1,6 +1,8 @@
 #include "audioplayer.h"
 
-void printMenu();
+void PrintMenu();
+
+void PrintAvailableTracks(AudioPlayer audioPlayer);
 
 int main() {
     AudioPlayer audioPlayer;
@@ -15,7 +17,7 @@ int main() {
 
         if (!firstIteration) {
             // menu
-            printMenu();
+            PrintMenu();
 
             cin >> n;
 
@@ -26,15 +28,8 @@ int main() {
 
         } else {
             firstIteration = false;
-            vector<string> files = audioPlayer.GetAvailableTracks("music/");
 
-            // output files
-            cout << "\nfiles in folder 'music':" << endl;
-            counter = 0;
-            for (auto const file:files) {
-                counter++;
-                cout << counter << ". " << file << endl;
-            }
+            PrintAvailableTracks(audioPlayer);
 
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
@@ -56,15 +51,7 @@ int main() {
 
             // change track
         } else if (n == 3) {
-            vector<string> files = audioPlayer.GetAvailableTracks("music/");
-
-            // output files
-            cout << "\nfiles in folder 'music':" << endl;
-            counter = 0;
-            for (auto const file:files) {
-                counter++;
-                cout << counter << ". " << file << endl;
-            }
+            PrintAvailableTracks(audioPlayer);
 
             cout << "\nTo choose track press it's number." << endl;
             cin >> trackNumber;
@@ -115,7 +102,7 @@ int main() {
     }
 }
 
-void printMenu() {
+void PrintMenu() {
     cout << "-----------------------------" << endl;
     cout << "-Press 1 to play the file" << endl;
     cout << "-Press 2 to exit the file" << endl;
@@ -124,4 +111,16 @@ void printMenu() {
     cout << "-Press 5 to change volume" << endl;
     cout << "-Press 6 to rewind track" << endl;
     cout << "-----------------------------" << endl;
+}
+
+void PrintAvailableTracks(AudioPlayer audioPlayer) {
+    int counter = 0;
+    vector<string> files = audioPlayer.GetAvailableTracks("music/");
+
+    // output files
+    cout << "\nfiles in folder 'music':" << endl;
+    for (auto const file:files) {
+        counter++;
+        cout << counter << ". " << file << endl;
+    }
 }
