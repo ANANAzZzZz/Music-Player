@@ -17,7 +17,7 @@ void CallMciSendString(const string &str);
 class AudioPlayer {
 
 private:
-    string trackName;
+    string selectedTrackName;
     string currentVolume = "50";
     bool isPlaying = false;
 

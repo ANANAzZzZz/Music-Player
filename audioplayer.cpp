@@ -54,9 +54,9 @@ bool AudioPlayer::ChangeTrack(const int& trackNumber) {
     // close previous audio
     CallMciSendString("close mp3");
 
-    trackName = files[trackNumber - 1];
+    selectedTrackName = files[trackNumber - 1];
 
-    CallMciSendString("open music/" + trackName + " type mpegVideo alias mp3");
+    CallMciSendString("open music/" + selectedTrackName + " type mpegVideo alias mp3");
 
     PlayAudio();
 

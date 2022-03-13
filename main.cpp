@@ -113,11 +113,11 @@ void PrintMenu() {
     cout << "-----------------------------" << endl;
 }
 
+// output files
 void PrintAvailableTracks(AudioPlayer audioPlayer) {
     int counter = 0;
     vector<string> files = audioPlayer.GetAvailableTracks("music/");
 
-    // output files
     cout << "\nfiles in folder 'music':" << endl;
     for (auto const file:files) {
         counter++;
