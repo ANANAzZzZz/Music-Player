@@ -1,6 +1,6 @@
 #include "audioplayer.h"
 
-vector<string> GetFileNames(const string& folder) {
+vector<string> AudioPlayer::GetAvailableTracks(const string& folder) {
     vector<string> names;
     DIR* directory = opendir(folder.c_str());
 
@@ -45,7 +45,7 @@ void AudioPlayer::RewindAudio(const string& trackTiming) {
 }
 
 bool AudioPlayer::ChangeTrack(const int& trackNumber) {
-    vector<string> files = GetFileNames("music/");
+    vector<string> files = GetAvailableTracks("music/");
 
     // check that trackNumber is valid
     if (trackNumber > files.size() || isdigit(trackNumber) == trackNumber) {

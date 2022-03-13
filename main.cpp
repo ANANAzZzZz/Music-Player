@@ -26,7 +26,7 @@ int main() {
 
         } else {
             firstIteration = false;
-            vector<string> files = GetFileNames("music/");
+            vector<string> files = GetAvailableTracks("music/");
 
             // output files
             cout << "\nfiles in folder 'music':" << endl;
@@ -56,7 +56,7 @@ int main() {
 
             // change track
         } else if (n == 3) {
-            vector<string> files = GetFileNames("music/");
+            vector<string> files = GetAvailableTracks("music/");
 
             // output files
             cout << "\nfiles in folder 'music':" << endl;

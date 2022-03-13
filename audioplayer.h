@@ -14,8 +14,6 @@ using namespace std;
 
 void CallMciSendString(const string &str);
 
-vector<string> GetFileNames(const string &folder);
-
 class AudioPlayer {
 
 private:
@@ -24,7 +22,6 @@ private:
     bool isPlaying = false;
 
 public:
-
     void PlayAudio();
 
     void ChangeVolume(const string &volume);
@@ -33,11 +30,14 @@ public:
 
     void CloseAudio();
 
-    bool ChangeTrack(const int&);
+    bool ChangeTrack(const int &);
 
     void RestartAudio();
 
     void PauseAudio();
 
     bool IsPlaying();
+
+    vector<string> GetAvailableTracks(const string &folder);
+
 };
