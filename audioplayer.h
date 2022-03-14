@@ -12,23 +12,23 @@
 
 using namespace std;
 
-void CallMciSendString(const string &str);
+void CallMciSendString(const string& str);
 
 class AudioPlayer {
 
-private:
-    string selectedTrackName;
-    string currentVolume = "50";
-    bool isPlaying = false;
+ private:
+  string selectedTrackName;
+  string currentVolume = "50";
+  bool isPlaying = false;
 
-public:
-    vector<string> GetAvailableTracks(const string& folder);
-    void ChangeVolume(const string& volume);
-    void RewindAudio(const string& trackTiming);
-    void CloseAudio();
-    bool ChangeTrack(const int& trackNumber);
-    void RestartAudio();
-    void PlayAudio();
-    void PauseAudio();
-    bool IsPlaying();
+ public:
+  vector<string> GetAvailableTracks(const string& folder);
+  void ChangeVolume(const string& volume);
+  void RewindAudio(const string& trackTiming);
+  void CloseAudio();
+  bool ChangeTrack(const int& trackNumber);
+  void RestartAudio();
+  bool PlayAudio();
+  void PauseAudio();
+  bool IsPlaying();
 };
