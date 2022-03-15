@@ -23,7 +23,7 @@ int main() {
 
       if (isdigit(n) == n) {
         cout << "\nError. Please enter number";
-        abort();
+        return 1;
       }
 
     } else {
@@ -34,10 +34,7 @@ int main() {
       cout << "\nTo choose track press it's number." << endl;
       cin >> trackNumber;
 
-      if (!audioPlayer.ChangeTrack(trackNumber)) {
-        cout << "Enter correct track's number";
-        break;
-      }
+      audioPlayer.ChangeTrack(trackNumber);
     }
 
     // play the audio file
@@ -59,15 +56,15 @@ int main() {
       cout << "\nTo choose track press it's number." << endl;
       cin >> trackNumber;
 
-      if (!audioPlayer.ChangeTrack(trackNumber)) {
-        cout << "Enter correct track's number";
-        break;
-      }
+      audioPlayer.ChangeTrack(trackNumber);
 
       // restart track
     } else if (n == 4 && !audioPlayer.IsPlaying()) {
-      // place track to start
-      audioPlayer.RestartAudio();
+
+      if (!audioPlayer.RestartAudio()) {
+        cout << "Unable to find track";
+        break;
+      }
 
       // change volume
     } else if (n == 5 && !audioPlayer.IsPlaying()) {
@@ -84,7 +81,10 @@ int main() {
       cout << "Press second that you want to rewind: " << endl;
       cin >> trackTiming;
 
-      audioPlayer.RewindAudio(trackTiming);
+      if (!audioPlayer.RewindAudio(trackTiming)) {
+        cout << "Unable to find track";
+        break;
+      }
     }
 
     if (audioPlayer.IsPlaying()) {

@@ -23,19 +23,19 @@ void AudioPlayer::CloseAudio() {
 }
 
 bool AudioPlayer::PlayAudio() {
-  if (selectedTrackName != "") {
-    // save current volume
+  // defend clause
+  if (selectedTrackName == "") {
+    return false;
+  }
+
+  // save current volume
     CallMciSendString(("setAudio mp3 volume to " + currentVolume));
 
     // play audio
     isPlaying = true;
     CallMciSendString("play mp3");
 
-    return true;
-
-  } else {
-    return false;
-  }
+  return true;
 }
 
 void AudioPlayer::ChangeVolume(const string& volume) {
@@ -43,13 +43,18 @@ void AudioPlayer::ChangeVolume(const string& volume) {
   CallMciSendString("setAudio mp3 volume to " + currentVolume);
 }
 
-void AudioPlayer::RewindAudio(const string& trackTiming) {
+bool AudioPlayer::RewindAudio(const string& trackTiming) {
+  // defend clause
+  if (selectedTrackName == "") {
+    return false;
+  }
+
   // rewind
   CallMciSendString(("seek mp3 to " + trackTiming + "000"));
 
-  if (!PlayAudio()) {
-    throw invalid_argument("Unable to find track");
-  }
+  PlayAudio();
+
+  return true;
 }
 
 bool AudioPlayer::ChangeTrack(const int& trackNumber) {
@@ -61,20 +66,23 @@ bool AudioPlayer::ChangeTrack(const int& trackNumber) {
   selectedTrackName = files[trackNumber - 1];
   CallMciSendString(+"open \"music/" + selectedTrackName + "\"" + " type mpegVideo alias mp3");
 
-  if (!PlayAudio()) {
-    throw invalid_argument("Unable to find track");
-  }
+  PlayAudio();
 
   return true;
 }
 
-void AudioPlayer::RestartAudio() {
+bool AudioPlayer::RestartAudio() {
+  // defend clause
+  if (selectedTrackName == "") {
+    return false;
+  }
+
   // place track to start
   CallMciSendString("seek mp3 to start");
 
-  if (!PlayAudio()) {
-    throw invalid_argument("Unable to find track");
-  }
+  PlayAudio();
+
+  return true;
 }
 
 void AudioPlayer::PauseAudio() {
