@@ -5,14 +5,14 @@ vector<string> AudioPlayer::GetAvailableTracks(const string& folder) {
   DIR* directory = opendir(folder.c_str());
 
   if (directory == nullptr) {
-	throw invalid_argument("Unable to find directory");
+    throw invalid_argument("Unable to find directory");
   }
 
   dirent* ent;
   while ((ent = readdir(directory)) != nullptr) {
-	if ((strcmp(ent->d_name, "..")) && (strcmp(ent->d_name, "."))) {
-	  names.emplace_back(ent->d_name);
-	}
+    if ((strcmp(ent->d_name, "..")) && (strcmp(ent->d_name, "."))) {
+      names.emplace_back(ent->d_name);
+    }
   }
   closedir(directory);
   return names;
@@ -24,17 +24,17 @@ void AudioPlayer::CloseAudio() {
 
 bool AudioPlayer::PlayAudio() {
   if (selectedTrackName != "") {
-	// save current volume
-	CallMciSendString(("setAudio mp3 volume to " + currentVolume));
+    // save current volume
+    CallMciSendString(("setAudio mp3 volume to " + currentVolume));
 
-	// play audio
-	isPlaying = true;
-	CallMciSendString("play mp3");
+    // play audio
+    isPlaying = true;
+    CallMciSendString("play mp3");
 
-	return true;
+    return true;
 
   } else {
-	return false;
+    return false;
   }
 }
 
@@ -48,7 +48,7 @@ void AudioPlayer::RewindAudio(const string& trackTiming) {
   CallMciSendString(("seek mp3 to " + trackTiming + "000"));
 
   if (!PlayAudio()) {
-	throw invalid_argument("Unable to find track");
+    throw invalid_argument("Unable to find track");
   }
 }
 
@@ -59,10 +59,10 @@ bool AudioPlayer::ChangeTrack(const int& trackNumber) {
   CallMciSendString("close mp3");
 
   selectedTrackName = files[trackNumber - 1];
-  CallMciSendString(+ "open \"music/" + selectedTrackName + "\"" + " type mpegVideo alias mp3");
+  CallMciSendString(+"open \"music/" + selectedTrackName + "\"" + " type mpegVideo alias mp3");
 
   if (!PlayAudio()) {
-	throw invalid_argument("Unable to find track");
+    throw invalid_argument("Unable to find track");
   }
 
   return true;
@@ -73,7 +73,7 @@ void AudioPlayer::RestartAudio() {
   CallMciSendString("seek mp3 to start");
 
   if (!PlayAudio()) {
-	throw invalid_argument("Unable to find track");
+    throw invalid_argument("Unable to find track");
   }
 }
 
