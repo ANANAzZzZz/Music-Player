@@ -38,9 +38,15 @@ bool AudioPlayer::PlayAudio() {
   return true;
 }
 
-void AudioPlayer::ChangeVolume(const string& volume) {
+bool AudioPlayer::ChangeVolume(const string& volume) {
+  if (stoi(volume) > 1000 || stoi(volume) < 0) {
+    return false;
+  }
+
   currentVolume = volume;
   CallMciSendString("setAudio mp3 volume to " + currentVolume);
+
+  return true;
 }
 
 bool AudioPlayer::RewindAudio(const string& trackTiming) {

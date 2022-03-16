@@ -72,7 +72,10 @@ int main() {
       cout << "\nTo set volume press it (min - 0; max - 1000)" << endl;
       cin >> volume;
 
-      audioPlayer.ChangeVolume(volume);
+      if (!audioPlayer.ChangeVolume(volume)) {
+        cout << "Wrong volume value";
+        break;
+      }
 
       // rewind track
     } else if (n == 6) {

@@ -23,7 +23,7 @@ class AudioPlayer {
 
  public:
   vector<string> GetAvailableTracks(const string& folder);
-  void ChangeVolume(const string& volume);
+  bool ChangeVolume(const string& volume);
   bool RewindAudio(const string& trackTiming);
   void CloseAudio();
   bool ChangeTrack(const int& trackNumber);
