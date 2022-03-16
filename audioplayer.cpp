@@ -39,8 +39,12 @@ bool AudioPlayer::PlayAudio() {
 }
 
 bool AudioPlayer::ChangeVolume(const string& volume) {
-  if (stoi(volume) > 1000 || stoi(volume) < 0) {
+  if (selectedTrackName == "") {
     return false;
+  }
+
+  if (stoi(volume) > 1000 || stoi(volume) < 0) {
+    throw invalid_argument("Wrong volume value");
   }
 
   currentVolume = volume;

@@ -68,14 +68,15 @@ int main() {
 
       // change volume
     } else if (n == 5 && !audioPlayer.IsPlaying()) {
+      if (!audioPlayer.ChangeVolume(volume)) {
+        cout << "Unable to find track";
+        break;
+      }
+
       cout << "\nCurrent volume is: " << volume;
       cout << "\nTo set volume press it (min - 0; max - 1000)" << endl;
       cin >> volume;
-
-      if (!audioPlayer.ChangeVolume(volume)) {
-        cout << "Wrong volume value";
-        break;
-      }
+      audioPlayer.ChangeVolume(volume);
 
       // rewind track
     } else if (n == 6) {
