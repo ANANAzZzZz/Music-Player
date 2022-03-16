@@ -38,7 +38,7 @@ bool AudioPlayer::PlayAudio() {
   return true;
 }
 
-bool AudioPlayer::ChangeVolume(int volume) {
+bool AudioPlayer::ChangeVolume(const int volume) {
   if (selectedTrackName == "") {
     return false;
   }
@@ -67,7 +67,7 @@ bool AudioPlayer::RewindAudio(const string& trackTiming) {
   return true;
 }
 
-bool AudioPlayer::ChangeTrack(const int& trackNumber) {
+bool AudioPlayer::ChangeTrack(const int trackNumber) {
   vector<string> files = GetAvailableTracks("music/");
 
   if (trackNumber < 0 || trackNumber > files.size()) {
