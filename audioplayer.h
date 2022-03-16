@@ -15,7 +15,6 @@ using namespace std;
 void CallMciSendString(const string& str);
 
 class AudioPlayer {
-
  private:
   string selectedTrackName;
   string currentVolume = "50";
