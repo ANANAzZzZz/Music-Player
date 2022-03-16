@@ -2,7 +2,7 @@
 
 void PrintMenu();
 
-void PrintAvailableTracks(AudioPlayer audioPlayer);
+void PrintAvailableTracks(const AudioPlayer& audioPlayer);
 
 int main() {
   AudioPlayer audioPlayer;
@@ -121,7 +121,7 @@ void PrintMenu() {
 }
 
 // output files
-void PrintAvailableTracks(AudioPlayer audioPlayer) {
+void PrintAvailableTracks(const AudioPlayer& audioPlayer) {
   int counter = 0;
   vector<string> files = audioPlayer.GetAvailableTracks("music/");
 

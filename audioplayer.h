@@ -21,7 +21,7 @@ class AudioPlayer {
   bool isPlaying = false;
 
  public:
-  vector<string> GetAvailableTracks(const string& folder);
+  vector<string> GetAvailableTracks(const string& folder) const;
   bool ChangeVolume(const int volume);
   bool RewindAudio(const string& trackTiming);
   void CloseAudio();

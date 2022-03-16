@@ -1,6 +1,6 @@
 #include "audioplayer.h"
 
-vector<string> AudioPlayer::GetAvailableTracks(const string& folder) {
+vector<string> AudioPlayer::GetAvailableTracks(const string& folder) const {
   vector<string> names;
   DIR* directory = opendir(folder.c_str());
 
