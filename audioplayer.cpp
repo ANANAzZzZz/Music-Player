@@ -60,6 +60,10 @@ bool AudioPlayer::RewindAudio(const string& trackTiming) {
 bool AudioPlayer::ChangeTrack(const int& trackNumber) {
   vector<string> files = GetAvailableTracks("music/");
 
+  if (trackNumber < 0 || trackNumber > files.size()) {
+    return false;
+  }
+
   // close previous audio
   CallMciSendString("close mp3");
 
