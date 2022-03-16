@@ -17,12 +17,12 @@ void CallMciSendString(const string& str);
 class AudioPlayer {
  private:
   string selectedTrackName;
-  string currentVolume = "50";
+  int currentVolume = 50;
   bool isPlaying = false;
 
  public:
   vector<string> GetAvailableTracks(const string& folder);
-  bool ChangeVolume(const string& volume);
+  bool ChangeVolume(int volume);
   bool RewindAudio(const string& trackTiming);
   void CloseAudio();
   bool ChangeTrack(const int& trackNumber);

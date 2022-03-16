@@ -7,7 +7,7 @@ void PrintAvailableTracks(AudioPlayer audioPlayer);
 int main() {
   AudioPlayer audioPlayer;
   bool firstIteration = true;
-  string volume = "50";
+  int volume = 50;
 
   while (true) {
     int n;

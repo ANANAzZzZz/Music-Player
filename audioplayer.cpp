@@ -29,7 +29,7 @@ bool AudioPlayer::PlayAudio() {
   }
 
   // save current volume
-    CallMciSendString(("setAudio mp3 volume to " + currentVolume));
+    CallMciSendString("setAudio mp3 volume to " + to_string(currentVolume));
 
     // play audio
     isPlaying = true;
@@ -38,17 +38,17 @@ bool AudioPlayer::PlayAudio() {
   return true;
 }
 
-bool AudioPlayer::ChangeVolume(const string& volume) {
+bool AudioPlayer::ChangeVolume(int volume) {
   if (selectedTrackName == "") {
     return false;
   }
 
-  if (stoi(volume) > 1000 || stoi(volume) < 0) {
+  if (volume > 1000 || volume < 0) {
     throw invalid_argument("Wrong volume value");
   }
 
   currentVolume = volume;
-  CallMciSendString("setAudio mp3 volume to " + currentVolume);
+  CallMciSendString("setAudio mp3 volume to " + to_string(currentVolume));
 
   return true;
 }
