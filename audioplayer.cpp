@@ -18,7 +18,7 @@ vector<string> AudioPlayer::GetAvailableTracks(const string& folder) const {
   return names;
 }
 
-void AudioPlayer::CloseAudio() {
+void AudioPlayer::CloseAudio() const {
   CallMciSendString("close mp3");
 }
 
@@ -80,7 +80,7 @@ void AudioPlayer::PauseAudio() {
   CallMciSendString("pause mp3");
 }
 
-void CallMciSendString(const string& str) {
+void AudioPlayer::CallMciSendString(const string& str) const {
   mciSendString(str.c_str(), nullptr, 0, nullptr);
 }
 
@@ -92,9 +92,6 @@ int AudioPlayer::GetVolumeValue() const {
   return currentVolume;
 }
 
-bool AudioPlayer::IsTrackChosen() {
-  if (selectedTrackName == "") {
-    return false;
-  }
-  return true;
+bool AudioPlayer::IsTrackChosen() const {
+    return selectedTrackName != "";
 }

@@ -12,8 +12,6 @@
 
 using namespace std;
 
-void CallMciSendString(const string& str);
-
 class AudioPlayer {
  private:
   string selectedTrackName;
@@ -21,15 +19,16 @@ class AudioPlayer {
   bool isPlaying = false;
 
  public:
+  void CallMciSendString(const string& str) const;
   vector<string> GetAvailableTracks(const string& folder) const;
   bool ChangeVolume(const int volume);
   void RewindAudio(const string& trackTiming);
-  void CloseAudio();
+  void CloseAudio() const;
   bool ChangeTrack(const int trackNumber);
   void RestartAudio();
   void PlayAudio();
   void PauseAudio();
   bool IsPlaying() const;
   int GetVolumeValue() const;
-  bool IsTrackChosen();
+  bool IsTrackChosen() const;
 };
