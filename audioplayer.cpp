@@ -93,5 +93,5 @@ int AudioPlayer::GetVolumeValue() const {
 }
 
 bool AudioPlayer::IsTrackChosen() const {
-    return selectedTrackName != "";
+  return selectedTrackName != "";
 }

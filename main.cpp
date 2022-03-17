@@ -40,7 +40,7 @@ int main() {
         cout << "Unable to find track" << endl;
         break;
       }
-    audioPlayer.PlayAudio();
+      audioPlayer.PlayAudio();
 
       // exit from player
     } else if (n == 2) {
