@@ -29,6 +29,7 @@ class AudioPlayer {
   void RestartAudio();
   void PlayAudio();
   void PauseAudio();
-  bool IsPlaying();
+  bool IsPlaying() const;
+  int GetVolumeValue() const;
   bool IsTrackChosen();
 };

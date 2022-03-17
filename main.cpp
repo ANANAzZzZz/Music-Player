@@ -7,7 +7,6 @@ void PrintAvailableTracks(const AudioPlayer& audioPlayer);
 int main() {
   AudioPlayer audioPlayer;
   bool firstIteration = true;
-  int volume = 50;
 
   while (true) {
     int n;
@@ -72,12 +71,14 @@ int main() {
 
       // change volume
     } else if (n == 5 && !audioPlayer.IsPlaying()) {
+      int volume;
+
       if (!audioPlayer.IsTrackChosen()) {
         cout << "Unable to find track";
         break;
       }
 
-      cout << "\nCurrent volume is: " << volume;
+      cout << "\nCurrent volume is: " << audioPlayer.GetVolumeValue();
       cout << "\nTo set volume press it (min - 0; max - 1000)" << endl;
       cin >> volume;
 

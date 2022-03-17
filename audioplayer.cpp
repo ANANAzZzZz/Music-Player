@@ -84,8 +84,12 @@ void CallMciSendString(const string& str) {
   mciSendString(str.c_str(), nullptr, 0, nullptr);
 }
 
-bool AudioPlayer::IsPlaying() {
+bool AudioPlayer::IsPlaying() const {
   return isPlaying;
+}
+
+int AudioPlayer::GetVolumeValue() const {
+  return currentVolume;
 }
 
 bool AudioPlayer::IsTrackChosen() {
