@@ -22,29 +22,18 @@ void AudioPlayer::CloseAudio() {
   CallMciSendString("close mp3");
 }
 
-bool AudioPlayer::PlayAudio() {
-  // defend clause
-  if (selectedTrackName == "") {
-    return false;
-  }
-
+void AudioPlayer::PlayAudio() {
   // save current volume
-    CallMciSendString("setAudio mp3 volume to " + to_string(currentVolume));
+  CallMciSendString("setAudio mp3 volume to " + to_string(currentVolume));
 
-    // play audio
-    isPlaying = true;
-    CallMciSendString("play mp3");
-
-  return true;
+  // play audio
+  isPlaying = true;
+  CallMciSendString("play mp3");
 }
 
 bool AudioPlayer::ChangeVolume(const int volume) {
-  if (selectedTrackName == "") {
-    return false;
-  }
-
   if (volume > 1000 || volume < 0) {
-    throw invalid_argument("Wrong volume value");
+    return false;
   }
 
   currentVolume = volume;
@@ -53,18 +42,11 @@ bool AudioPlayer::ChangeVolume(const int volume) {
   return true;
 }
 
-bool AudioPlayer::RewindAudio(const string& trackTiming) {
-  // defend clause
-  if (selectedTrackName == "") {
-    return false;
-  }
-
+void AudioPlayer::RewindAudio(const string& trackTiming) {
   // rewind
   CallMciSendString(("seek mp3 to " + trackTiming + "000"));
 
   PlayAudio();
-
-  return true;
 }
 
 bool AudioPlayer::ChangeTrack(const int trackNumber) {
@@ -85,18 +67,11 @@ bool AudioPlayer::ChangeTrack(const int trackNumber) {
   return true;
 }
 
-bool AudioPlayer::RestartAudio() {
-  // defend clause
-  if (selectedTrackName == "") {
-    return false;
-  }
-
+void AudioPlayer::RestartAudio() {
   // place track to start
   CallMciSendString("seek mp3 to start");
 
   PlayAudio();
-
-  return true;
 }
 
 void AudioPlayer::PauseAudio() {
@@ -111,4 +86,11 @@ void CallMciSendString(const string& str) {
 
 bool AudioPlayer::IsPlaying() {
   return isPlaying;
+}
+
+bool AudioPlayer::IsTrackChosen() {
+  if (selectedTrackName == "") {
+    return false;
+  }
+  return true;
 }

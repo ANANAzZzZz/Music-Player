@@ -11,8 +11,6 @@ int main() {
 
   while (true) {
     int n;
-    int counter;
-    int trackNumber;
 
     if (!firstIteration) {
       // menu
@@ -27,6 +25,7 @@ int main() {
 
     } else {
       firstIteration = false;
+      int trackNumber;
 
       PrintAvailableTracks(audioPlayer);
 
@@ -38,10 +37,11 @@ int main() {
 
     // play the audio file
     if (n == 1) {
-      if (!audioPlayer.PlayAudio()) {
+      if (!audioPlayer.IsTrackChosen()) {
         cout << "Unable to find track" << endl;
         break;
       }
+    audioPlayer.PlayAudio();
 
       // exit from player
     } else if (n == 2) {
@@ -50,24 +50,29 @@ int main() {
 
       // change track
     } else if (n == 3) {
+      int trackNumber;
+
       PrintAvailableTracks(audioPlayer);
 
       cout << "\nTo choose track press it's number." << endl;
       cin >> trackNumber;
-
-      audioPlayer.ChangeTrack(trackNumber);
+      if (!audioPlayer.ChangeTrack(trackNumber)) {
+        cout << "ChangeTrack error";
+        break;
+      }
 
       // restart track
     } else if (n == 4 && !audioPlayer.IsPlaying()) {
 
-      if (!audioPlayer.RestartAudio()) {
+      if (!audioPlayer.IsTrackChosen()) {
         cout << "Unable to find track";
         break;
       }
+      audioPlayer.RestartAudio();
 
       // change volume
     } else if (n == 5 && !audioPlayer.IsPlaying()) {
-      if (!audioPlayer.ChangeVolume(volume)) {
+      if (!audioPlayer.IsTrackChosen()) {
         cout << "Unable to find track";
         break;
       }
@@ -75,7 +80,11 @@ int main() {
       cout << "\nCurrent volume is: " << volume;
       cout << "\nTo set volume press it (min - 0; max - 1000)" << endl;
       cin >> volume;
-      audioPlayer.ChangeVolume(volume);
+
+      if (!audioPlayer.ChangeVolume(volume)) {
+        cout << "ChangeVolume error";
+        break;
+      }
 
       // rewind track
     } else if (n == 6) {
@@ -84,10 +93,11 @@ int main() {
       cout << "Press second that you want to rewind: " << endl;
       cin >> trackTiming;
 
-      if (!audioPlayer.RewindAudio(trackTiming)) {
+      if (!audioPlayer.IsTrackChosen()) {
         cout << "Unable to find track";
         break;
       }
+      audioPlayer.RewindAudio(trackTiming);
     }
 
     if (audioPlayer.IsPlaying()) {
