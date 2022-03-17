@@ -13,7 +13,6 @@ int main() {
     int n;
     int counter;
     int trackNumber;
-    string fileLink;
 
     if (!firstIteration) {
       // menu
@@ -123,7 +122,7 @@ void PrintMenu() {
 // output files
 void PrintAvailableTracks(const AudioPlayer& audioPlayer) {
   int counter = 0;
-  vector<string> files = audioPlayer.GetAvailableTracks("music/");
+  const auto files = audioPlayer.GetAvailableTracks("music/");
 
   cout << "\nfiles in folder 'music':" << endl;
   for (auto const file: files) {
